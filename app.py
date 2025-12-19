@@ -33,14 +33,25 @@ if __name__ == '__main__':
             pil_image = st_image_to_pil(img)
             with st.spinner('Running ...'):
                 answer = ask_and_get_answer(prompt, pil_image)
-                st.text_area('Gemini Answer: ', value=answer, height=200)
+                st.markdown("### Gemini Answer:")
+                with st.container():
+                    st.markdown(answer)
+
 
             st.divider()
-            if 'history' not in st.session_state:
-                st.session_state.history = ''
 
-            value = f'Q: {prompt} \n\n A: {answer}'
-            st.session_state.history = f'{value} \n\n {"-" * 100} \n\n {st.session_state.history}'
+            # Store chat history as a list of turns (better than one giant string)
+            if "history" not in st.session_state:
+                st.session_state.history = []  # list of {"q":..., "a":...}
 
-            h = st.session_state.history
-            st.text_area(label='Chat History', value=h, height=400, key='history')
+            # Append latest turn
+            st.session_state.history.insert(0, {"q": prompt, "a": answer})  # newest first
+
+            st.markdown("### Chat History")
+
+            # Render history using markdown so **bold** works
+            for turn in st.session_state.history[:10]:  # show last 10
+                st.markdown(f"**Q:** {turn['q']}")
+                st.markdown(f"**A:** {turn['a']}")
+                st.markdown("---")
+
