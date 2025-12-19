@@ -22,3 +22,5 @@ chroma/
 *.pdf
 *.docx
 *.txt
+
+!requirements.txt
