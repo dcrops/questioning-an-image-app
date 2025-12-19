@@ -1,0 +1,24 @@
+# Secrets
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual envs
+.venv/
+venv/
+env/
+
+# Local vector DB / Chroma (optional but recommended)
+chromadb/
+chroma/
+*.sqlite3
+
+# Sample documents / uploads (recommended)
+*.pdf
+*.docx
+*.txt
